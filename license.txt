@@ -1,3 +1,0 @@
-﻿Telifhakkı (c) PakCodeDT 2026-günümüz
-Bu yazılım faydalı olucağı düşünülerek PakCodeDT tarafından ücretsiz sunulmuştur ancak hiçbir garanti verilmemiştir AGPLv3 lisansı altında dağıtılmaktadır ve tüm eserlerinde aynı lisansı yada isteğe bağlı olarak sonraki sürümlerden biriyle dağıtılması zorunludurve buna bulut servisleri dahildir.
-lisanslinki: https://www.gnu.org/licenses/agpl-3.0.html?utm_source
