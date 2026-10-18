@@ -1,0 +1,49 @@
+{
+  "author": "PakCodeDT",
+  "manifest_version": 3,
+  "name": "AddSecurity",
+  "version": "3.82.92",
+  "description": "Zararlı reklamalrdan ve izleyicilerden korunma aracı.",
+  "minimum_chrome_version": "120",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "64": "a.png",
+      "128": "a.png"
+    },
+    "default_title": "AddSecurity",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "64": "a.png",
+    "128": "a.png"
+  },
+  "options_ui": {
+    "open_in_tab": true,
+    "page": "adsecurity-settings.html"
+  },
+  "content_scripts": [
+    {"matches": ["<all_urls>"],"js": ["content.js"],"run_at": "document_start","all_frames": true,"world": "ISOLATED"},
+    {"matches": ["<all_urls>"],"js": ["content-main.js"],"run_at": "document_start","all_frames": true,"world": "MAIN"}
+  ],
+  "permissions": [
+    "alarms",
+    "storage",
+    "tabs",
+    "webNavigation",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
+  ],
+    "declarative_net_request": {
+    "rule_resources": [
+        {"id": "easyprivacy","enabled": true, "path": "easyprivacy.txt"},
+        {"id": "hosts","enabled": true,"path": "hosts.json" }
+    ]},
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {"resources": ["filtre.json"],"matches": ["<all_urls>"]}
+  ]
+  
+}

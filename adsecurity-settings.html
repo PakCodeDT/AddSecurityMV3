@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdSecurity - Ayarlar</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --card: #16213e;
+      --accent: #0f3460;
+      --text: #eee;
+      --text-dim: #aaa;
+      --success: #4ade80;
+      --toggle-bg: #374151;
+      --toggle-on: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .filters-container {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .filter-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .filter-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      transition: opacity 0.2s;
+    }
+
+    .filter-item.enabled {
+      border-left: 3px solid var(--success);
+    }
+
+    .filter-toggle {
+      width: 44px;
+      height: 24px;
+      border-radius: 12px;
+      background: var(--toggle-bg);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .filter-toggle::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s;
+    }
+
+    .filter-toggle.on {
+      background: var(--toggle-on);
+    }
+
+    .filter-toggle.on::after {
+      transform: translateX(20px);
+    }
+
+    .filter-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .filter-title {
+      font-weight: 500;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .filter-badge {
+      padding: 2px 8px;
+      background: var(--accent);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .filter-badge.link:hover {
+      background: #1e40af;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--success);
+      color: #111;
+    }
+
+    /* Filtre açma/kapatma veya yeni liste ekleme yapıldığında ama henüz
+       "Kaydet"e basılmadığında bu buton dikkat çekmesi için vurgulanır. */
+    .btn.dirty {
+      background: #f59e0b;
+      color: #111;
+      animation: pulse-dirty 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dirty {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.75; }
+    }
+
+    .msg-ok {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background: var(--success);
+      color: #111;
+      border-radius: 8px;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .msg-ok.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .msg-error {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      max-width: 360px;
+      padding: 12px 16px;
+      background: #ef4444;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      z-index: 1000;
+      white-space: pre-wrap;
+    }
+
+    .msg-error.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .info-box {
+      background: var(--accent);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .info-box strong {
+      color: var(--text);
+    }
+
+    .custom-form {
+      display: none;
+      background: var(--bg);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 14px;
+      gap: 10px;
+      flex-direction: column;
+    }
+
+    .custom-form.active-form {
+      display: flex;
+    }
+
+    .custom-form label {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .custom-form input[type="text"],
+    .custom-form select,
+    .custom-form textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--toggle-bg);
+      background: var(--card);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .custom-form textarea {
+      min-height: 90px;
+      resize: vertical;
+      font-family: ui-monospace, monospace;
+    }
+
+    .field {
+      margin-bottom: 4px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 0.95rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tab-btn.active {
+      color: var(--text);
+      border-bottom: 2px solid var(--success);
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+    }
+
+    .own-rules-wrap textarea {
+      width: 100%;
+      min-height: 320px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--toggle-bg);
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-monospace, monospace;
+      font-size: 0.9rem;
+      resize: vertical;
+    }
+
+    /* Öncelik alanı artık type="text" olduğu için tarayıcı spinner'ı zaten
+       yok; yine de olası number-input kalıntıları için ekstra güvenlik. */
+    .priority-input::-webkit-outer-spin-button,
+    .priority-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .priority-input {
+      -moz-appearance: textfield;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>AdSecurity - filtreler</h1>
+    <p>PakCodeDT tarafından</p>
+  </div>
+
+  <div class="info-box">
+    <strong>ℹ️ Bilgi:</strong> Filtre açma/kapatma ve yeni liste ekleme işlemleri
+    ekranda işaretlenir ama <strong>hemen uygulanmaz</strong>; devreye girmesi için
+    <strong>💾 Kaydet</strong> butonuna basmanız gerekir.
+    Aktif listeler 6 saatte bir otomatik güncellenir; "🔄 Şimdi Güncelle" butonu
+    filtre listelerini ve genel sonek (PSL) listesini
+    anında ve zorla tazeler.
+    Filtre listelerinin yanındaki rakamlar öncelik değerini belirler; en küçük değer en önceliklidir.
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tab-btn-filters" data-target="section-filters">🔧 Filtre Listeleri</button>
+    <button class="tab-btn" id="tab-btn-own" data-target="section-own-rules">✍️ Kendi Kurallarım</button>
+  </div>
+
+  <div class="section active" id="section-filters">
+    <div class="filters-container">
+      <div class="section-title">🔧 Filtre Listeleri</div>
+      <div class="filter-list" id="filter-list"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-save-filters">💾 Kaydet</button>
+      <button class="btn" id="btn-refresh-filters">🔄 Şimdi Güncelle</button>
+      <button class="btn" id="btn-add-custom">➕ Özel Liste Ekle</button>
+    </div>
+
+    <div class="custom-form" id="custom-form">
+      <div class="field">
+        <label for="custom-name">Liste adı</label>
+        <input type="text" id="custom-name" placeholder="Örn. Benim Kurallarım">
+      </div>
+      <div class="field">
+        <label for="custom-type">Tür</label>
+        <select id="custom-type">
+          <option value="remote">Uzak URL (filtre listesi bağlantısı)</option>
+        </select>
+      </div>
+      <div class="field" id="custom-url-wrap">
+        <label for="custom-url">Liste URL'si</label>
+        <input type="text" id="custom-url" placeholder="https://.../liste.txt">
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="btn-custom-save">💾 Listeyi Kaydet</button>
+        <button class="btn" id="btn-custom-cancel">Vazgeç</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="msg-ok" id="msg-save-filters">✓ Kaydedildi</div>
+  <div class="msg-error" id="msg-error"></div>
+
+  <div class="section" id="section-own-rules">
+    <div class="filters-container own-rules-wrap">
+      <div class="section-title">✍️ Kendi Kurallarım</div>
+      <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 10px;">
+        Buraya kendi kurallarınızı  elle yazabilirsiniz.
+        Her satıra bir kural. Bu liste ağdan çekilmez, doğrudan sizin yazdığınızdır.
+      </p>
+      <textarea id="own-rules-text" placeholder="{(spotify.com: trtdinle.com, odysee.com) - Açıklama}&#10;{spotify.com;spotify-tr.com,spotify-free.net}"></textarea>
+      <div class="actions">
+        <button class="btn btn-primary" id="btn-own-rules-save">💾 Kaydet</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+
+</html>

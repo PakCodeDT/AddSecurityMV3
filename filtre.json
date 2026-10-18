@@ -1,0 +1,123 @@
+{
+  "nocoin_slm": {
+    "name": "Kripto Madencilik Koruması",
+    "icon": "⛏️",
+    "defaultOn": true,
+    "author": "hoshsadiq",
+    "license": "MIT",
+    "supportURL": "https://github.com/hoshsadiq/adblock-nocoin-list",
+    "tier": 3,
+    "urls": [
+      "https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt"
+    ]
+  },
+  "easylist_cookie": {
+    "name": "EasyList Çerez Popup",
+    "icon": "🍪",
+    "defaultOn": true,
+    "author": "EasyList",
+    "license": "CC BY-SA 3.0 || GPLv3",
+    "supportURL": "https://secure.fanboy.co.nz",
+    "tier": 2,
+    "urls": [
+      "https://secure.fanboy.co.nz/fanboy-cookiemonster_ubo.txt"
+    ]
+  },
+  "easyprivacy": {
+    "name": "EasyList izleyici koruması",
+    "icon": "👁️‍🗨️",
+    "defaultOn": true,
+    "author": "EasyList",
+    "license": "GPLv3",
+    "supportURL": "https://easylist.to",
+    "tier": 2,
+    "localDnrRuleset": "easyprivacy",
+    "urls": [
+      "/dnr-rules/easyprivacy.json"
+    ]
+  },
+  "pakcodedt_list": {
+    "name": "PakCodeDT List",
+    "defaultOn": true,
+    "author": "PakCodeDT",
+    "license": "AGPLv3",
+    "supportURL": "https://gitlab.com/PakCodeDT/list",
+    "tier": 3,
+    "urls": [
+      "https://gitlab.com/PakCodeDT/list/-/raw/main/pakcodedtlist.txt?ref_type=heads"
+    ]
+  },
+  "addsecurity_düzeltmeler": {
+    "name": "AddSecuity düzeltmeler",
+    "icon": "🛠️",
+    "defaultOn": true,
+    "author": "PakCodeDT",
+    "license": "AGPLv3",
+    "supportURL": "https://gitlab.com/PakCodeDT/list",
+    "tier": 4,
+    "urls": [
+      "https://gitlab.com/PakCodeDT/list/-/raw/main/d%C3%BCzeltmeler.txt?ref_type=heads"
+    ]
+  },
+  "adguard_tracking": {
+    "name": "AdGuard izleme Koruması",
+    "icon": "👁️‍🗨️",
+    "defaultOn": false,
+    "author": "AdguardTeam",
+    "license": "GPLv3",
+    "supportURL": "https://github.com/AdguardTeam/AdguardFilters/tree/master/TrackParamFilter/sections",
+    "tier": 2,
+    "urls": [
+      "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/refs/heads/master/TrackParamFilter/sections/specific.txt"
+    ]
+  },
+  "adguard_url_tracking": {
+    "name": "AdGuard URL İzleme",
+    "icon": "🔗",
+    "defaultOn": false,
+    "author": "AdguardTeam",
+    "license": "GPLv3",
+    "supportURL": "https://github.com/AdguardTeam/AdguardFilters/tree/master/TrackParamFilter/sections",
+    "tier": 2,
+    "localDnrRuleset": "adguard-tracker-url",
+    "urls": [
+      "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/refs/heads/master/TrackParamFilter/sections/general_url.txt"
+    ]
+  },  "malicious_url": {
+    "name": "Malicious URL Blocklist",
+    "icon": "⚠️",
+    "defaultOn": true,
+    "author": "abuse.ch",
+    "license": "MIT",
+    "supportURL": "https://gitlab.com/malware-filter/urlhaus-filter/-/blob/master/urlhaus-filter-hosts-online.txt?utm",
+    "tier": 3,
+    "urls": [
+      "https://gitlab.com/malware-filter/urlhaus-filter/-/raw/master/urlhaus-filter-hosts-online.txt?ref_type=heads"
+    ]
+  },
+  "phishing_url": {
+    "name": "Phishing URL Blocklist",
+    "icon": "⚠️",
+    "defaultOn": true,
+    "author": "curben",
+    "license": "MIT",
+    "supportURL": "https://malware-filter.gitlab.io/malware-filter/phishing-filter-hosts.txt",
+    "tier": 3,
+    "urls": [
+      "https://malware-filter.gitlab.io/malware-filter/phishing-filter-hosts.txt"
+    ]
+  },
+  "ublock_badware": {
+    "name": "uBlock Zararlı Siteler",
+    "icon": "⚠️",
+    "defaultOn": true,
+    "author": "uBlockOrigin",
+    "license": "GPLv3",
+    "supportURL": "https://github.com/uBlockOrigin/uAssets",
+    "tier": 3,
+    "urls": [
+      "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt",
+      "https://ublockorigin.github.io/uAssets/filters/badware.txt"
+    ]
+  }
+}
