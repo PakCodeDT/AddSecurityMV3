@@ -23,6 +23,19 @@
       "https://secure.fanboy.co.nz/fanboy-cookiemonster_ubo.txt"
     ]
   },
+  "adguard_url_tracking": {
+    "name": "AdGuard URL İzleme",
+    "icon": "🔗",
+    "defaultOn": false,
+    "author": "AdguardTeam",
+    "license": "GPLv3",
+    "supportURL": "https://github.com/AdguardTeam/AdguardFilters/tree/master/TrackParamFilter/sections",
+    "tier": 2,
+    "localDnrRuleset": "adguard-url-tracker",
+    "urls": [
+      "adguard_url.txt"
+    ]
+  },
   "easyprivacy": {
     "name": "EasyList izleyici koruması",
     "icon": "👁️‍🗨️",
@@ -33,7 +46,7 @@
     "tier": 2,
     "localDnrRuleset": "easyprivacy",
     "urls": [
-      "/dnr-rules/easyprivacy.json"
+      "easyprivacy.json"
     ]
   },
   "pakcodedt_list": {
@@ -71,19 +84,7 @@
       "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/refs/heads/master/TrackParamFilter/sections/specific.txt"
     ]
   },
-  "adguard_url_tracking": {
-    "name": "AdGuard URL İzleme",
-    "icon": "🔗",
-    "defaultOn": false,
-    "author": "AdguardTeam",
-    "license": "GPLv3",
-    "supportURL": "https://github.com/AdguardTeam/AdguardFilters/tree/master/TrackParamFilter/sections",
-    "tier": 2,
-    "localDnrRuleset": "adguard-tracker-url",
-    "urls": [
-      "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/refs/heads/master/TrackParamFilter/sections/general_url.txt"
-    ]
-  },  "malicious_url": {
+  "malicious_url": {
     "name": "Malicious URL Blocklist",
     "icon": "⚠️",
     "defaultOn": true,
