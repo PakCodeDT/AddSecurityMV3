@@ -31,9 +31,22 @@
     "license": "GPLv3",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters/tree/master/TrackParamFilter/sections",
     "tier": 2,
-    "localDnrRuleset": "adguard-url-tracker",
+    "localDnrRuleset": "adguard_url_tracking",
     "urls": [
       "adguard_url.txt"
+    ]
+  },  
+  "hosts": {
+    "name": "Steve Black Hosts",
+    "icon": "🔗",
+    "defaultOn": false,
+    "author": "AdguardTeam",
+    "license": "GPLv3",
+    "supportURL": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+    "tier": 2,
+    "localDnrRuleset": "hosts",
+    "urls": [
+      "hosts.txt"
     ]
   },
   "easyprivacy": {
