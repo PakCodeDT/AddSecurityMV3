@@ -39,7 +39,8 @@
     "declarative_net_request": {
     "rule_resources": [
         {"id": "easyprivacy","enabled": true, "path": "easyprivacy.txt"},
-        {"id": "hosts","enabled": true,"path": "hosts.json" }
+        {"id": "hosts","enabled": true,"path": "hosts.json" },
+        {"id": "adguard_url_tracking","enabled": false,"path": "general_url.txt " }
     ]},
   "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
